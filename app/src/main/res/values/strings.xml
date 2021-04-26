@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CarPoolr</string>
+    <string name="text_label_2">Page2</string>
+    <string name="text_label_1">Page 1</string>
 </resources>
