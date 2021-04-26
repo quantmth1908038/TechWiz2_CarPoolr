@@ -55,7 +55,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         service.getRegister(edEmail.getText().toString(), edPass.getText().toString()).enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                String status = response.body().getStatus();
+                boolean status = response.body().getStatus();
+                if (status) {
+
+                }
             }
 
             @Override
