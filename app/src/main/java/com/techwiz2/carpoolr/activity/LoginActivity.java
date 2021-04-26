@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
 
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -74,4 +73,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+
+
 }

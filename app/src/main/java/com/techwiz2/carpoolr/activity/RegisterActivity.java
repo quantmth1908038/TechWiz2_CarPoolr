@@ -58,7 +58,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(this,"You must confirm password",Toast.LENGTH_LONG).show();
             return;
         }
-        if (edPass.getText().toString().isEmpty() != edPassConfirm.getText().toString().isEmpty()){
+
+        String password = edPass.getText().toString();
+        String comfirmPassword = edPassConfirm.getText().toString();
+
+
+        if (password != comfirmPassword){
             Toast.makeText(this,"Password not match",Toast.LENGTH_LONG).show();
             return;
         }
