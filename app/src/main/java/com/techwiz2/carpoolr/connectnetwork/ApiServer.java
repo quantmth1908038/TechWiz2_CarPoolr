@@ -1,5 +1,6 @@
 package com.techwiz2.carpoolr.connectnetwork;
 
+import com.techwiz2.carpoolr.model.AccessToken;
 import com.techwiz2.carpoolr.model.Response;
 
 import retrofit2.Call;
@@ -13,12 +14,12 @@ public interface ApiServer {
 
 
     @POST("api/auth/register")
-    Call<Response> getRegister(@Query("email") String email,
+    Call<Integer> getRegister(@Query("email") String email,
                                @Query("password") String password);
 
     @POST("api/auth/login")
-    Call<Response> getLogin(@Query("email") String email,
-                            @Query("password") String password);
+    Call<AccessToken> getLogin(@Query("email") String email,
+                               @Query("password") String password);
 
     
 
