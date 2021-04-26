@@ -1,9 +1,26 @@
 package com.techwiz2.carpoolr.connectnetwork;
 
+import com.techwiz2.carpoolr.model.Response;
+
+import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiServer {
-    String SERVER_URL = "https://maps.googleapis.com/";
+    String SERVER_URL = "https://techwiz-api.test.vieted.net/";
+
+
+    @POST("api/auth/register")
+    Call<Response> getRegister(@Query("email") String email,
+                               @Query("password") String password);
+
+    @POST("api/auth/login")
+    Call<Response> getLogin(@Query("email") String email,
+                            @Query("password") String password);
+
+    
 
 //    @GET("maps/api/directions/json")
 //    Call<Result> getDirection(@Query("mode") String mode,
