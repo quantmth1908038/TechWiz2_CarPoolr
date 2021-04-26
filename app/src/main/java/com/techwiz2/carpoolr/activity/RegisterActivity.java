@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.techwiz2.carpoolr.R;
 import com.techwiz2.carpoolr.connectnetwork.ApiServer;
@@ -45,6 +46,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void onRegister() {
+        if (edEmail.getText().toString().isEmpty()){
+            Toast.makeText(this,"Please enter your email",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (edPass.getText().toString().isEmpty()){
+            Toast.makeText(this,"Please enter your password",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (edPassConfirm.getText().toString().isEmpty()){
+            Toast.makeText(this,"You must confirm password",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (edPass.getText().toString().isEmpty() != edPassConfirm.getText().toString().isEmpty()){
+            Toast.makeText(this,"Password not match",Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiServer.SERVER_URL)
                 .addConverterFactory(GsonConverterFactory.create())
