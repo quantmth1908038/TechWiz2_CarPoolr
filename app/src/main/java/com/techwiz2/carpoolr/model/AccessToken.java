@@ -1,9 +1,9 @@
 package com.techwiz2.carpoolr.model;
 
-public class Access_Token {
+public class AccessToken {
     private String token;
 
-    public Access_Token(String token) {
+    public AccessToken(String token) {
         this.token = token;
     }
 
