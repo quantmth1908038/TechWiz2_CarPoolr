@@ -10,18 +10,24 @@ import com.techwiz2.carpoolr.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText edEmail, edPass;
-    Button btLogin;
+    EditText edEmail, edPass, edPassConfirm;
+    Button btSignup, btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        init();
 
 
     }
 
+    public void init() {
+        edEmail = findViewById(R.id.edEmail);
+        edPass = findViewById(R.id.edPass);
+        edPassConfirm = findViewById(R.id.edPassConfirm);
 
+    }
 
 }
