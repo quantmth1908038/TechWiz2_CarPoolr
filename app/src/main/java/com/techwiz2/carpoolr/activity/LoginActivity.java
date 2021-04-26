@@ -61,7 +61,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.d("TAG", "onFailure: sasd");
             }
         });
-
     }
     @Override
     public void onClick(View v) {
