@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText edEmail, edPass, edPassConfirm;
-    Button btSignup, btnLogin;
+    Button btnSubmit, btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +41,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         edPass = findViewById(R.id.edPass);
         edPassConfirm = findViewById(R.id.edPassConfirm);
 
-        btSignup = findViewById(R.id.btSignup);
+        btnSubmit = findViewById(R.id.btnSubmit);
         btnLogin = findViewById(R.id.btnLogin);
 
-        btSignup.setOnClickListener(this);
+        btnSubmit.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
 
     }
 
     public void validation() {
+
         if (edEmail.getText().toString().isEmpty()){
             Toast.makeText(this,"Please enter your email",Toast.LENGTH_LONG).show();
             return;
         }
+
+        String password = edPass.getText().toString();
+        String comfirmPassword = edPassConfirm.getText().toString();
+
         if (edPass.getText().toString().isEmpty()){
             Toast.makeText(this,"Please enter your password",Toast.LENGTH_LONG).show();
             return;
@@ -63,11 +68,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-        String password = edPass.getText().toString();
-        String comfirmPassword = edPassConfirm.getText().toString();
-
-
-        if (password != comfirmPassword){
+        if (!password.equals(comfirmPassword)){
             Toast.makeText(this,"Password not match",Toast.LENGTH_LONG).show();
             return;
         }
@@ -98,7 +99,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 Log.d("TAG", "onFailure: ");
             }
         });
-
     }
 
     public void onLogin() {
@@ -137,11 +137,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editor.commit();
     }
 
+
+    public void goToLogin(){
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btSignup:
+            case R.id.btnSubmit:
                 onRegister();
+                break;
+            case R.id.btnLogin:
+                goToLogin();
                 break;
             default:
                 break;
