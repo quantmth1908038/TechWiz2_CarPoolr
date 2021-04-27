@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         ApiServer service = retrofit.create(ApiServer.class);
 
-        service.getLogin(edEmail.getText().toString(), edPass.getText().toString()).enqueue(new Callback<AccessToken>() {
+        service.getLogin(edEmail.getText().toString(), edPass.getText().toString(), "user").enqueue(new Callback<AccessToken>() {
             @Override
             public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
                 if (response.body() != null) {

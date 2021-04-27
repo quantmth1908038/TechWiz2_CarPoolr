@@ -21,7 +21,6 @@ public class BookCarActivity extends AppCompatActivity {
 
         intent = getIntent();
         init();
-
     }
 
     public void init() {
@@ -31,7 +30,6 @@ public class BookCarActivity extends AppCompatActivity {
         tvFromAdd.setText(intent.getStringExtra("fromAddress"));
         tvToAdd.setText(intent.getStringExtra("toAddress"));
     }
-
 
 
 
