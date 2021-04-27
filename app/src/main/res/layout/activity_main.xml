@@ -94,6 +94,7 @@
         android:layout_above="@+id/bottom_navigation"
         android:padding="20dp">
         <TextView
+            android:id="@+id/btnBookCar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Book a car"

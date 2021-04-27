@@ -17,6 +17,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.techwiz2.carpoolr.activity.BookCarActivity;
 import com.techwiz2.carpoolr.activity.LoginActivity;
 import com.techwiz2.carpoolr.connectnetwork.ApiDirection;
 import com.techwiz2.carpoolr.connectnetwork.ApiServer;
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FusedLocationProviderClient fusedLocationClient;
     private SupportMapFragment mapFragment;
 
-    private TextView ePointAway, eDestination;
+    private TextView ePointAway, eDestination, btnBookCar;
 
     private LatLng latLngAway, latLngDes;
 
@@ -98,9 +100,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void init() {
         ePointAway = findViewById(R.id.ePointAway);
         eDestination = findViewById(R.id.eDestination);
+        btnBookCar = findViewById(R.id.btnBookCar);
 
         ePointAway.setOnClickListener(this);
         eDestination.setOnClickListener(this);
+        btnBookCar.setOnClickListener(this);
     }
 
     @Override
@@ -108,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
         getLocationPermission();
         getCurrentLocation();
-
     }
 
     private void getLocationPermission() {
@@ -190,6 +193,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             case R.id.eDestination:
                 getDestination();
                 break;
+            case  R.id.btnBookCar:
+                bookCar();
+                break;
+        }
+    }
+
+    public void bookCar() {
+        if (ePointAway.getText().toString().isEmpty() || eDestination.getText().toString().isEmpty()) {
+            Toast.makeText(this,"Please enter information",Toast.LENGTH_LONG).show();
+        } else {
+            Intent intent = new Intent(this, BookCarActivity.class);
+            intent.putExtra("fromLati", latLngAway.latitude);
+            intent.putExtra("fromLongi", latLngAway.longitude);
+            intent.putExtra("toLati", latLngDes.latitude);
+            intent.putExtra("toLongi", latLngDes.longitude);
+            intent.putExtra("fromAddress", ePointAway.getText().toString());
+            intent.putExtra("toAddress", eDestination.getText().toString());
+            startActivity(intent);
         }
     }
 
@@ -218,12 +239,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             MarkerOptions options = new MarkerOptions();
 
             latLngAway = place.getLatLng();
+            if (latLngDes == null) {
 
-            options.position(latLngAway);
-            options.title(place.getName());
-            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-            mMap.addMarker(options);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngAway, 12));
+                options.position(latLngAway);
+                options.title(place.getName());
+                options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                mMap.addMarker(options);
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngAway, 12));
+            } else {
+                getDirections(latLngAway, latLngDes);
+            }
 
         } else if (requestCode == 101 && resultCode == RESULT_OK) {
             Place place = Autocomplete.getPlaceFromIntent(data);
@@ -291,7 +316,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             // Adding route on the map
                             mMap.addPolyline(rectLine);
                             options.position(destination);
+                            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
                             options.draggable(true);
+                            mMap.addMarker(options);
+                            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                            options.position(origin);
                             mMap.addMarker(options);
                         }
                     }
