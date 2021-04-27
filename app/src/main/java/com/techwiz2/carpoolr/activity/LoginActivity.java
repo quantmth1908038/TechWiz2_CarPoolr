@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.techwiz2.carpoolr.MainActivity;
 import com.techwiz2.carpoolr.R;
@@ -28,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText edEmail,edPass;
-    Button btnLogin;
+    Button btnSubmit,btnSignup;
     ArrayList<Activity> activities =new ArrayList<Activity>();
 
     @Override
@@ -47,12 +48,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edEmail = findViewById(R.id.edEmail);
         edPass = findViewById(R.id.edPass);
 
-        btnLogin = findViewById(R.id.btSignup);
+        btnSubmit = findViewById(R.id.btnSubmit);
+        btnSignup = findViewById(R.id.btnSignup);
 
-        btnLogin.setOnClickListener(this);
+
+        btnSubmit.setOnClickListener(this);
+        btnSignup.setOnClickListener(this);
+    }
+
+    public void validation() {
+        if (edEmail.getText().toString().isEmpty()){
+            Toast.makeText(this,"Please enter your email",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (edPass.getText().toString().isEmpty()){
+            Toast.makeText(this,"Please enter your password",Toast.LENGTH_LONG).show();
+            return;
+        }
     }
 
     public void onLogin() {
+        validation();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiServer.SERVER_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -122,11 +139,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
+    public void goToRegister(){
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btSignup:
+            case R.id.btnSubmit:
                 onLogin();
+                break;
+
+            case R.id.btnSignup:
+                goToRegister();
                 break;
             default:
                 break;
