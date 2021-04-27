@@ -48,7 +48,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnSubmit = findViewById(R.id.btnSubmit);
         btnSignup = findViewById(R.id.btnSignup);
 
-
         btnSubmit.setOnClickListener(this);
         btnSignup.setOnClickListener(this);
     }
