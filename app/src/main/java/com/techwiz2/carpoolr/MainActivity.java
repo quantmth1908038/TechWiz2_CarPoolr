@@ -10,20 +10,19 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.directions.route.AbstractRouting;
-import com.directions.route.Route;
-import com.directions.route.RouteException;
 import com.directions.route.Routing;
-import com.directions.route.RoutingListener;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -36,7 +35,6 @@ import com.google.android.gms.maps.model.ButtCap;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -45,9 +43,13 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
-import com.google.android.material.snackbar.Snackbar;
 import com.techwiz2.carpoolr.activity.LoginActivity;
+import com.techwiz2.carpoolr.connectnetwork.ApiDirection;
 import com.techwiz2.carpoolr.connectnetwork.ApiServer;
+import com.techwiz2.carpoolr.model.direction.DirectionResults;
+import com.techwiz2.carpoolr.model.direction.Route;
+import com.techwiz2.carpoolr.model.direction.RouteDecode;
+import com.techwiz2.carpoolr.model.direction.Steps;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,7 +57,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, RoutingListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCAT = 44;
     private GoogleMap mMap;
@@ -67,8 +75,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LatLng latLngAway, latLngDes;
 
     PolylineOptions polylineOptions;
-
-    private List<Polyline> polylines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -228,17 +234,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             latLngDes = place.getLatLng();
 
-            Findroutes(latLngAway, latLngDes);
-
-//            polylineOptions = new PolylineOptions();
-//
-//            polylineOptions.color(ContextCompat.getColor(getApplicationContext(), R.color.design_default_color_primary));
-//            polylineOptions.width(6);
-//            polylineOptions.startCap(new ButtCap());
-//            polylineOptions.jointType(JointType.ROUND);
-//            polylineOptions.add(latLngAway);
-//            polylineOptions.add(latLngDes);
-//            mMap.addPolyline(polylineOptions);
+            getDirections(latLngAway, latLngDes);
 
         } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
             Status status = Autocomplete.getStatusFromIntent(data);
@@ -247,82 +243,65 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    public void Findroutes(LatLng Start, LatLng End)
-    {
-        if(Start==null || End==null) {
-            return;
-        }
-        else
-        {
-            Routing routing = new Routing.Builder()
-                    .travelMode(AbstractRouting.TravelMode.DRIVING)
-                    .withListener(this)
-                    .alternativeRoutes(true)
-                    .waypoints(Start, End)
-                    .key(String.valueOf(R.string.api_key_map))  //also define your api key here.
-                    .build();
-            routing.execute();
-        }
-    }
+    public void getDirections(LatLng origin, LatLng destination) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiDirection.MAP_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-    @Override
-    public void onRoutingFailure(RouteException e) {
-        View parentLayout = findViewById(android.R.id.content);
-        Snackbar snackbar= Snackbar.make(parentLayout, e.toString(), Snackbar.LENGTH_LONG);
-        snackbar.show();
-    }
+        ApiDirection apiDirection = retrofit.create(ApiDirection.class);
+        apiDirection.getDirection("driving", "less_driving", origin.latitude + "," + origin.longitude, destination.latitude + "," + destination.longitude, getString(R.string.api_key_map))
+                .enqueue(new Callback<DirectionResults>() {
+                    @Override
+                    public void onResponse(Call<DirectionResults> call, Response<DirectionResults> response) {
+                        DirectionResults directionResults = response.body();
+                        ArrayList<LatLng> routelist = new ArrayList<LatLng>();
+                        if(directionResults.getRoutes().size()>0){
+                            ArrayList<LatLng> decodelist;
+                            Route routeA = directionResults.getRoutes().get(0);
 
-    @Override
-    public void onRoutingStart() {
+                            if(routeA.getLegs().size()>0){
+                                List<Steps> steps= routeA.getLegs().get(0).getSteps();
+                                Steps step;
+                                com.techwiz2.carpoolr.model.direction.Location location;
+                                String polyline;
+                                for(int i=0 ; i<steps.size();i++){
+                                    step = steps.get(i);
+                                    location = step.getStart_location();
+                                    routelist.add(new LatLng(location.getLat(), location.getLng()));
+                                    Log.i("zacharia", "Start Location :" + location.getLat() + ", " + location.getLng());
+                                    polyline = step.getPolyline().getPoints();
+                                    decodelist = RouteDecode.decodePoly(polyline);
+                                    routelist.addAll(decodelist);
+                                    location =step.getEnd_location();
+                                    routelist.add(new LatLng(location.getLat() ,location.getLng()));
+                                }
+                            }
+                        }
 
-    }
+                        if(routelist.size()>0){
+                            PolylineOptions rectLine = new PolylineOptions().width(10).color(Color.BLUE);
 
-    @Override
-    public void onRoutingSuccess(ArrayList<Route> route, int index) {
+                            for (int i = 0; i < routelist.size(); i++) {
+                                rectLine.add(routelist.get(i));
+                            }
 
-        if(polylines!=null) {
-            polylines.clear();
-        }
+                            MarkerOptions options = new MarkerOptions();
 
-        PolylineOptions polyOptions = new PolylineOptions();
-        LatLng polylineStartLatLng=null;
-        LatLng polylineEndLatLng=null;
+                            // Adding route on the map
+                            mMap.addPolyline(rectLine);
+                            options.position(destination);
+                            options.draggable(true);
+                            mMap.addMarker(options);
+                        }
+                    }
 
-        polylines = new ArrayList<>();
+                    @Override
+                    public void onFailure(Call<DirectionResults> call, Throwable t) {
+                        System.out.println("Failure, retrofitError" + t);
+                    }
+                });
 
-        for (int i = 0; i <route.size(); i++) {
-
-            if (i == index) {
-                polylineOptions.color(ContextCompat.getColor(getApplicationContext(), R.color.design_default_color_primary));
-                polylineOptions.width(6);
-                polylineOptions.startCap(new ButtCap());
-                polylineOptions.jointType(JointType.ROUND);
-                Polyline polyline = mMap.addPolyline(polyOptions);
-                polylineStartLatLng = polyline.getPoints().get(0);
-                int k = polyline.getPoints().size();
-                polylineEndLatLng = polyline.getPoints().get(k - 1);
-                polylines.add(polyline);
-            } else {
-
-            }
-        }
-
-        MarkerOptions startMarker = new MarkerOptions();
-        startMarker.position(polylineStartLatLng);
-        startMarker.title("My Location");
-        mMap.addMarker(startMarker);
-
-        //Add Marker on route ending position
-        MarkerOptions endMarker = new MarkerOptions();
-        endMarker.position(polylineEndLatLng);
-        endMarker.title("Destination");
-        mMap.addMarker(endMarker);
-
-        }
-
-    @Override
-    public void onRoutingCancelled() {
-        Findroutes(latLngAway,latLngDes);
     }
 
 }

@@ -30,14 +30,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     EditText edEmail,edPass;
     Button btnSubmit,btnSignup;
-    ArrayList<Activity> activities =new ArrayList<Activity>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        activities.add(this);
 
         init();
 
@@ -68,6 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void onLogin() {
+
         validation();
 
         Retrofit retrofit = new Retrofit.Builder()
