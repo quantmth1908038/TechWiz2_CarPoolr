@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
                 if (response.body() != null) {
                     AccessToken accessToken = response.body();
-                    if (checkFirstLogin()) {
+                    if (true) {
                         saveStateLogin(accessToken.getToken());
                         Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
                         startActivity(intent);
@@ -105,7 +105,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPreferences setting = getSharedPreferences("CarPoolr", MODE_PRIVATE);
         Long last_login = setting.getLong("last_login", 1619431968);
         Long now = new Date().getTime();
-        if ((now - last_login) < 604800) {
+        long d = now - last_login;
+        if ((now - last_login) < 604800000) {
             return true;
         }
         return false;

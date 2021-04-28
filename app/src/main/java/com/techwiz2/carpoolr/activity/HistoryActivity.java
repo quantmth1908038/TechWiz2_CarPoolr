@@ -50,7 +50,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         adapter = new HistoryAdapter(this, historyList);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL,true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL,false);
 
         RecyclerView rvItem = findViewById(R.id.rvHistory);
         rvItem.setLayoutManager(layoutManager);

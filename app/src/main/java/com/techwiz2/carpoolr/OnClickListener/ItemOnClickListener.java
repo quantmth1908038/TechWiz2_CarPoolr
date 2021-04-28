@@ -1,8 +1,5 @@
-package com.techwiz2.carpoolr;
+package com.techwiz2.carpoolr.OnClickListener;
 
-import android.view.View;
-
-import com.techwiz2.carpoolr.model.Car;
 import com.techwiz2.carpoolr.model.History;
 
 public interface ItemOnClickListener {

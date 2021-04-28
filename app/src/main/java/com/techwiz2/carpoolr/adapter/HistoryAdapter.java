@@ -3,15 +3,12 @@ package com.techwiz2.carpoolr.adapter;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.techwiz2.carpoolr.ItemOnClickListener;
+import com.techwiz2.carpoolr.OnClickListener.ItemOnClickListener;
 import com.techwiz2.carpoolr.R;
 import com.techwiz2.carpoolr.model.History;
 
