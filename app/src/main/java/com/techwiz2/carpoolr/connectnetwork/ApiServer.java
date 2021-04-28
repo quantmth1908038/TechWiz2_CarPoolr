@@ -22,7 +22,17 @@ public interface ApiServer {
     @POST("api/auth/login")
     Call<AccessToken> getLogin(@Query("email") String email,
                                @Query("password") String password,
-                               @Query("role") String role);
+                               @Query("role") String role,
+                               @Query("user_id") String user_id);
+
+    @POST("api/user/book-ride")
+    Call<Integer> bookCar(@Header("Authorization") String token,
+                          @Query("destinationX") double destinationX,
+                          @Query("destinationY") double destinationY,
+                          @Query("departureX") double departureX,
+                          @Query("departureY") double departureY,
+                          @Query("slot") int slot,
+                          @Query("time") long time);
 
     @GET("api/ride")
     Call<History> getHistory(@Header("Authorization") String token);

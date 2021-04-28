@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="match_parent"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
-        android:paddingTop="30dp"
-        >
+        android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:background="@color/white"
-            android:layout_marginBottom="30dp"
+            android:layout_height="100dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@color/mainColor"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
 
             >
 
@@ -27,145 +30,148 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/avatar" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gregory Smith"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/img1"
+                android:text="Gregory Smith"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_centerVertical="true"/>
+                android:textColor="@color/yellowColor"/>
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            >
+            android:paddingLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white">
+
             <ImageView
                 android:id="@+id/imgUser"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_baseline_location_on_24"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_baseline_location_on_24" />
 
             <TextView
                 android:id="@+id/tvFromAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="12dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@+id/imgUser"
                 android:gravity="left"
                 android:text="Lê Lợi,Kiến Xương,Thái Bình"
                 android:textSize="15dp"
-                android:textStyle="bold" />
+                />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            >
+            android:paddingLeft="30dp"
+            android:background="@color/white"
+            android:layout_marginTop="10dp">
+
             <ImageView
                 android:id="@+id/imgUser2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_baseline_radio_button_checked_24"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_baseline_radio_button_checked_24"
+                />
+
             <TextView
                 android:id="@+id/tvToAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lê Lợi,Kiến Xương,Thái Bình"
-                android:layout_toRightOf="@+id/imgUser2"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
                 android:layout_centerVertical="true"
-                android:gravity="left"/>
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/imgUser2"
+                android:gravity="left"
+                android:text="Lê Lợi,Kiến Xương,Thái Bình"
+                android:textSize="15dp"
+                />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="300dp">
             <TextView
+                android:id="@+id/tvTilteTime"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="Choose your car"
-                android:gravity="center"
-                android:textSize="15dp"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:paddingLeft="20dp"
                 android:textStyle="bold"
-                android:background="@color/mainColor"
-                android:textColor="@color/white"
-                android:layout_marginBottom="30dp"/>
-            <!--        -->
-        </RelativeLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content"
-            android:background="@color/backgroundMain">
+                android:layout_marginBottom="5dp"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:layout_marginBottom="20dp"
+                android:paddingLeft="20dp"
                 android:background="@color/white"
-                android:layout_marginBottom="3dp"
+                android:layout_below="@+id/tvTilteTime"
+                android:id="@+id/time">
 
-                >
+
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_baseline_directions_car_24"
-                    android:id="@+id/ivCar"
-                    android:layout_marginRight="15dp"
+                    android:id="@+id/imgUser1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerVertical="true"
-                    />
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_baseline_calendar_today_24" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvDate"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Just go"
-                    android:layout_toRightOf="@+id/ivCar"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:id="@+id/tvNameCar"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Near by you"
-                    android:layout_toRightOf="@+id/ivCar"
-                    android:textSize="13dp"
-                    android:layout_below="@+id/tvNameCar"
-                    android:layout_marginTop="7dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$25"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/imgUser1"
+                    android:gravity="left"
+                    android:text="27 month 4 2021"
                     android:textSize="15dp"
-                    android:layout_alignParentRight="true"
-                    android:textStyle="bold"
-                    android:id="@+id/tvPrime"
-                    android:layout_marginRight="15dp"
-                    android:textColor="@color/yellowColor"
-                    android:layout_marginBottom="10dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2 Min"
-                    android:textSize="14dp"
-                    android:layout_alignParentRight="true"
-                    android:textStyle="bold"
-                    android:layout_below="@+id/tvPrime"
-                    android:layout_marginRight="15dp"
                     />
             </RelativeLayout>
+            <TextView
+                android:id="@+id/tvTilteSlot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Slot"
+                android:paddingLeft="20dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@+id/time"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="20dp"
+                android:layout_below="@+id/tvTilteSlot"
+                android:id="@+id/spinnerSlot"
+                android:layout_marginTop="10dp"/>
+        </RelativeLayout>
 
-        </LinearLayout>
+        <Button
+            android:id="@+id/btnConfirmBookCar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Confirm Book Car"/>
+
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

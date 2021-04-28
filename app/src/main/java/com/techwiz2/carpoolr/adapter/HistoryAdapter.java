@@ -11,18 +11,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.techwiz2.carpoolr.ItemOnClickListener;
+import com.techwiz2.carpoolr.R;
 import com.techwiz2.carpoolr.model.History;
 
+import java.text.DateFormat;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter {
 
     private Activity activity;
     private List<History> historyList;
+    private ItemOnClickListener itemOnClickListener;
 
     public HistoryAdapter(Activity activity, List<History> historyList) {
         this.activity = activity;
         this.historyList = historyList;
+    }
+
+    public void setItemOnClickListener(ItemOnClickListener itemOnClickListener) {
+        this.itemOnClickListener = itemOnClickListener;
     }
 
     public void reloadData(List<History> list) {
@@ -33,11 +41,30 @@ public class HistoryAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View itemView = activity.getLayoutInflater().inflate(R.layout.item_history, parent, false);
+        HistoryHolder holder = new HistoryHolder(itemView);
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        HistoryHolder historyHolder = (HistoryHolder) holder;
+        History model = historyList.get(position);
+        historyHolder.tvTitleTime.setText(DateFormat.getTimeInstance(DateFormat.FULL).format(model.getTime()));
+        historyHolder.ePointAway.setText(model.getFromAdd());
+        historyHolder.eDestination.setText(model.getToAdd());
+        historyHolder.eDestination.setText(model.getDirection());
+        historyHolder.tvFare.setText(String.valueOf(model.getFare()) + "USD");
+        historyHolder.tvNameCar.setText(model.getName());
+        historyHolder.tvPlate.setText(model.getPlate());
+        switch (model.getStatus()) {
+            case "1":
+                historyHolder.tvStatus.setText("Wait State");
+            case "2":
+                historyHolder.tvStatus.setText("Success");
+            case "0":
+                historyHolder.tvStatus.setText("Cancel");
+        }
 
     }
 
@@ -47,14 +74,26 @@ public class HistoryAdapter extends RecyclerView.Adapter {
     }
 
     public class HistoryHolder extends RecyclerView.ViewHolder {
-        TextView tvDate, tvTitle, tvContent;
-        ImageView ivCover;
-
-        RelativeLayout r;
-
+        TextView tvTitleTime, ePointAway, eDestination, tvDirection, tvFare, tvNameCar, tvPlate, tvStatus;
 
         public HistoryHolder(@NonNull View itemView) {
             super(itemView);
+            tvTitleTime = itemView.findViewById(R.id.tvTilteTime);
+            ePointAway = itemView.findViewById(R.id.ePointAway);
+            eDestination = itemView.findViewById(R.id.eDestination);
+            tvDirection = itemView.findViewById(R.id.tvDirection);
+            tvFare = itemView.findViewById(R.id.tvFare);
+            tvNameCar = itemView.findViewById(R.id.tvNameCar);
+            tvPlate = itemView.findViewById(R.id.tvPlate);
+            tvStatus = itemView.findViewById(R.id.tvStatus);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    History model = historyList.get(getAdapterPosition());
+                    itemOnClickListener.onClickListenerHistory(model);
+                }
+            });
 
         }
     }

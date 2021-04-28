@@ -16,6 +16,8 @@ import com.techwiz2.carpoolr.R;
 import com.techwiz2.carpoolr.connectnetwork.ApiServer;
 import com.techwiz2.carpoolr.model.AccessToken;
 
+import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -109,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         ApiServer service = retrofit.create(ApiServer.class);
 
-        service.getLogin(edEmail.getText().toString(), edPass.getText().toString()).enqueue(new Callback<AccessToken>() {
+        service.getLogin(edEmail.getText().toString(), edPass.getText().toString(), "user", "").enqueue(new Callback<AccessToken>() {
             @Override
             public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
                 if (response.body() != null) {
@@ -134,6 +136,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         SharedPreferences.Editor editor = setting.edit();
         editor.putString("access_token", token);
         editor.putBoolean("first_login", false);
+        editor.putLong("last_login", new Date().getTime());
         editor.commit();
     }
 

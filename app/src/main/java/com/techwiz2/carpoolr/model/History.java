@@ -8,11 +8,38 @@ public class History {
     private double departureX;
     private double departureY;
     private String status;
-    private Date time;
+    private long time;
     private double fare;
     private int slot;
     private String name;
     private String plate;
+    private String fromAdd;
+    private String toAdd;
+    private String Direction;
+
+    public String getDirection() {
+        return Direction;
+    }
+
+    public void setDirection(String direction) {
+        Direction = direction;
+    }
+
+    public String getFromAdd() {
+        return fromAdd;
+    }
+
+    public void setFromAdd(String fromAdd) {
+        this.fromAdd = fromAdd;
+    }
+
+    public String getToAdd() {
+        return toAdd;
+    }
+
+    public void setToAdd(String toAdd) {
+        this.toAdd = toAdd;
+    }
 
     public double getDestinationX() {
         return destinationX;
@@ -54,11 +81,11 @@ public class History {
         this.status = status;
     }
 
-    public Date getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
