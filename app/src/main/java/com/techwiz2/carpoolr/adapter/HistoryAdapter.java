@@ -62,7 +62,6 @@ public class HistoryAdapter extends RecyclerView.Adapter {
         } else if (model.getStatus().equals("3")) {
             historyHolder.tvStatus.setText("Cancel");
         }
-
     }
 
     @Override
@@ -83,13 +82,13 @@ public class HistoryAdapter extends RecyclerView.Adapter {
             tvPlate = itemView.findViewById(R.id.tvPlate);
             tvStatus = itemView.findViewById(R.id.tvStatus);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    History model = historyList.get(getAdapterPosition());
-                    itemOnClickListener.onClickListenerHistory(model);
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    History model = historyList.get(getAdapterPosition());
+//                    itemOnClickListener.onClickListenerHistory(model);
+//                }
+//            });
 
         }
     }

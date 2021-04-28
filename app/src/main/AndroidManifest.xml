@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CarPoolr">
+        <activity android:name=".activity.AccountActivity"></activity>
         <activity android:name=".activity.ProfileActivity"></activity>
         <activity android:name=".activity.HistoryActivity"></activity>
         <activity android:name=".activity.BookCarActivity"></activity>
