@@ -74,14 +74,13 @@ public class HistoryAdapter extends RecyclerView.Adapter {
     }
 
     public class HistoryHolder extends RecyclerView.ViewHolder {
-        TextView tvTitleTime, ePointAway, eDestination, tvDirection, tvFare, tvNameCar, tvPlate, tvStatus;
+        TextView tvTitleTime, ePointAway, eDestination, tvFare, tvNameCar, tvPlate, tvStatus;
 
         public HistoryHolder(@NonNull View itemView) {
             super(itemView);
             tvTitleTime = itemView.findViewById(R.id.tvTilteTime);
             ePointAway = itemView.findViewById(R.id.ePointAway);
             eDestination = itemView.findViewById(R.id.eDestination);
-            tvDirection = itemView.findViewById(R.id.tvDirection);
             tvFare = itemView.findViewById(R.id.tvFare);
             tvNameCar = itemView.findViewById(R.id.tvNameCar);
             tvPlate = itemView.findViewById(R.id.tvPlate);

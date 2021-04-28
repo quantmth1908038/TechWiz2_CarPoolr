@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
     android:background="@color/white">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="3dp"
-
-
-        >
+        android:layout_marginBottom="3dp">
         <TextView
             android:id="@+id/tvTilteTime"
             android:layout_width="match_parent"
@@ -88,13 +86,13 @@
                         android:text="Status"
                         android:textStyle="bold"/>
                     <TextView
+                        android:id="@+id/tvStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Đang chờ..."/>
+                        android:text="Wait State"/>
 
                 </LinearLayout>
                 <LinearLayout
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -105,13 +103,14 @@
                         android:text="Total price"
                         android:textStyle="bold"/>
                     <TextView
+                        android:id="@+id/tvFare"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$1000"/>
+                        android:text=""/>
 
                 </LinearLayout>
 
-            </>
+            </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -122,7 +121,7 @@
                 android:background="@color/white"
                 >
                 <LinearLayout
-                    android:id="@+id/colum1"
+                    android:id="@+id/colum2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -132,9 +131,10 @@
                         android:text="Car name"
                         android:textStyle="bold"/>
                     <TextView
+                        android:id="@+id/tvNameCar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rolls Royce"/>
+                        android:text=""/>
 
                 </LinearLayout>
                 <LinearLayout
@@ -148,18 +148,16 @@
                         android:text="Plate"
                         android:textStyle="bold"/>
                     <TextView
+                        android:id="@+id/tvPlate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12H-1542"/>
+                        android:text=""/>
 
                 </LinearLayout>
 
-            </>
-
+            </RelativeLayout>/
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 
