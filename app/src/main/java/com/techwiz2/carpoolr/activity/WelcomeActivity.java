@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.techwiz2.carpoolr.MainActivity;
 import com.techwiz2.carpoolr.R;
+import com.techwiz2.carpoolr.StartonClickListener;
 import com.techwiz2.carpoolr.activity.fragments.FragmentBlank1;
 import com.techwiz2.carpoolr.activity.fragments.FragmentBlank2;
 import com.techwiz2.carpoolr.activity.fragments.FragmentBlank3;
@@ -24,6 +25,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
+    private FragmentBlank3 fragmentBlank3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +34,20 @@ public class WelcomeActivity extends AppCompatActivity {
 
         List<Fragment> list = new ArrayList<>();
 
+        fragmentBlank3 = new FragmentBlank3();
+
         list.add(new FragmentBlank1());
         list.add(new FragmentBlank2());
-        list.add(new FragmentBlank3());
+        list.add(fragmentBlank3);
+
+        fragmentBlank3.setStartonClickListener(new StartonClickListener() {
+            @Override
+            public void onClickListenerFragment(View v) {
+                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         pager = findViewById(R.id.pager);
 

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.techwiz2.carpoolr.R;
 import com.techwiz2.carpoolr.connectnetwork.ApiServer;
@@ -89,8 +90,16 @@ public class BookCarActivity extends AppCompatActivity implements View.OnClickLi
                 c.set(Calendar.YEAR,year);
                 c.set(Calendar.MONTH, month);
                 c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                String current = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-                tvDate.setText(current);
+                Calendar check = Calendar.getInstance();
+                if (c.getTimeInMillis() > check.getTimeInMillis()) {
+                    String current = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+                    tvDate.setText(current);
+                } else {
+                    c = check;
+                    String current = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+                    tvDate.setText(current);
+                    Toast.makeText(BookCarActivity.this,"Time fail",Toast.LENGTH_LONG).show();
+                }
             }
         }, mYear,mMonth,mDate);
         datePickerDialog.show();
