@@ -62,7 +62,6 @@ public class HistoryAdapter extends RecyclerView.Adapter {
         } else if (model.getStatus().equals("3")) {
             historyHolder.tvStatus.setText("Cancel");
         }
-
     }
 
     @Override

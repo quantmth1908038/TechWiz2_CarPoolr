@@ -39,6 +39,7 @@ import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.techwiz2.carpoolr.activity.AccountActivity;
 import com.techwiz2.carpoolr.activity.BookCarActivity;
 import com.techwiz2.carpoolr.activity.HistoryActivity;
 import com.techwiz2.carpoolr.activity.LoginActivity;
@@ -196,6 +197,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
+    public void goToAccount(){
+        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -210,6 +218,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 break;
             case R.id.idHistory:
                 goToHistory();
+                break;
+
+            case R.id.idAccount:
+                goToAccount();
+                break;
 
         }
     }

@@ -39,7 +39,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     private List<History> historyList = new ArrayList<>();
     HistoryAdapter adapter;
-    ImageView idHome,icBack;
+    ImageView idHome,icBack,idAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         idHome = findViewById(R.id.idHome);
         icBack = findViewById(R.id.icBack);
+        idAccount = findViewById(R.id.idAccount);
 
         idHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +78,14 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
+        idAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HistoryActivity.this, AccountActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private  void getData() {

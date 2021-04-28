@@ -131,21 +131,19 @@
            android:background="@color/white"
            android:orientation="horizontal"
            android:layout_above="@+id/bottom_navigation"
-           android:paddingTop="15dp"
-           android:paddingBottom="15dp"
-           android:paddingLeft="20dp"
            android:layout_marginBottom="0.5dp"
            >
+
            <TextView
                android:id="@+id/btnBookCar"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Book a car"
-               android:background="@drawable/border"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
                android:padding="13dp"
-               android:layout_marginRight="10dp"
-               android:textStyle="bold"
-               android:textColor="@color/mainColor"/>
+               android:gravity="center"
+               android:text="Book A Car"
+               android:textColor="@color/mainColor"
+               android:background="@color/yellowColor"
+               android:textStyle="bold" />
        </LinearLayout>
 
        <LinearLayout
