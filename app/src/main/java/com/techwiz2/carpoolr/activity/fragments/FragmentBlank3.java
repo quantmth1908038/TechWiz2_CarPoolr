@@ -1,6 +1,5 @@
 package com.techwiz2.carpoolr.activity.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.techwiz2.carpoolr.ItemOnClickListener;
-import com.techwiz2.carpoolr.MainActivity;
 import com.techwiz2.carpoolr.R;
-import com.techwiz2.carpoolr.StartonClickListener;
-import com.techwiz2.carpoolr.activity.LoginActivity;
-import com.techwiz2.carpoolr.activity.WelcomeActivity;
+import com.techwiz2.carpoolr.OnClickListener.StartonClickListener;
 
 
 public class FragmentBlank3 extends Fragment {

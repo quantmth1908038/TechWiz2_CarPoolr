@@ -10,19 +10,18 @@ public class History {
     private String status;
     private long time;
     private double fare;
-    private Car car;
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
+    private Car cars;
     private String fromAdd;
     private String toAdd;
     private String Direction;
+
+    public Car getCar() {
+        return cars;
+    }
+
+    public void setCar(Car car) {
+        this.cars = car;
+    }
 
     public String getDirection() {
         return Direction;
