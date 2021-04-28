@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.techwiz2.carpoolr.MainActivity;
@@ -37,6 +39,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     private List<History> historyList = new ArrayList<>();
     HistoryAdapter adapter;
+    ImageView idHome,icBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,27 @@ public class HistoryActivity extends AppCompatActivity {
         RecyclerView rvItem = findViewById(R.id.rvHistory);
         rvItem.setLayoutManager(layoutManager);
         rvItem.setAdapter(adapter);
+
+        idHome = findViewById(R.id.idHome);
+        icBack = findViewById(R.id.icBack);
+
+        idHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        icBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 

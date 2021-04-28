@@ -7,7 +7,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -17,13 +16,10 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.directions.route.AbstractRouting;
-import com.directions.route.Routing;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -32,8 +28,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.ButtCap;
-import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -44,10 +38,12 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.techwiz2.carpoolr.activity.BookCarActivity;
+import com.techwiz2.carpoolr.activity.HistoryActivity;
 import com.techwiz2.carpoolr.activity.LoginActivity;
+import com.techwiz2.carpoolr.activity.RegisterActivity;
 import com.techwiz2.carpoolr.connectnetwork.ApiDirection;
-import com.techwiz2.carpoolr.connectnetwork.ApiServer;
 import com.techwiz2.carpoolr.model.direction.DirectionResults;
 import com.techwiz2.carpoolr.model.direction.Route;
 import com.techwiz2.carpoolr.model.direction.RouteDecode;
@@ -65,18 +61,16 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener{
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCAT = 44;
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationClient;
     private SupportMapFragment mapFragment;
-
     private TextView ePointAway, eDestination, btnBookCar;
-
     private LatLng latLngAway, latLngDes;
 
-    PolylineOptions polylineOptions;
+    ImageView idAccount,idHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,17 +88,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-
     }
+
 
     public void init() {
         ePointAway = findViewById(R.id.ePointAway);
         eDestination = findViewById(R.id.eDestination);
         btnBookCar = findViewById(R.id.btnBookCar);
+        idAccount = findViewById(R.id.idAccount);
+        idHistory = findViewById(R.id.idHistory);
 
         ePointAway.setOnClickListener(this);
         eDestination.setOnClickListener(this);
         btnBookCar.setOnClickListener(this);
+        idAccount.setOnClickListener(this);
+        idHistory.setOnClickListener(this);
     }
 
     @Override
@@ -185,6 +183,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
+//    public void goToAccount(){
+//        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+//        startActivity(intent);
+//        finish();
+//    }
+
+    public void goToHistory(){
+        Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -197,6 +208,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             case  R.id.btnBookCar:
                 bookCar();
                 break;
+            case R.id.idHistory:
+                goToHistory();
+
         }
     }
 
@@ -333,5 +347,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
 
     }
+
 
 }
