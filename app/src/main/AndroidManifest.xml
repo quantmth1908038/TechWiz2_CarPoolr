@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CarPoolr">
-        <activity android:name=".activity.BookCarActivity"></activity>
+        <activity android:name=".RideActivity"></activity>
+        <activity android:name=".activity.RideActivity" />
+        <activity android:name=".activity.BookCarActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -23,9 +25,9 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".activity.WelcomeActivity"></activity>
-        <activity android:name=".activity.RegisterActivity"></activity>
-        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.WelcomeActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

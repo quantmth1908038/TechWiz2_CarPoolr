@@ -18,21 +18,13 @@ public class BookCarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_car);
-
         intent = getIntent();
         init();
-
     }
-
     public void init() {
         tvFromAdd = findViewById(R.id.tvFromAdd);
         tvToAdd = findViewById(R.id.tvToAdd);
-
         tvFromAdd.setText(intent.getStringExtra("fromAddress"));
         tvToAdd.setText(intent.getStringExtra("toAddress"));
     }
-
-
-
-
 }

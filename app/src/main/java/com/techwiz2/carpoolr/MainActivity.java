@@ -93,8 +93,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-
     }
 
     public void init() {
@@ -168,10 +166,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngAway, 15));
 
                             mMap.addMarker(options);
-
                         }
                     });
-
                     try {
                         Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
                         List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);

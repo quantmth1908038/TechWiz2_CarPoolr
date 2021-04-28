@@ -1,11 +1,11 @@
 package com.techwiz2.carpoolr.connectnetwork;
 
 import com.techwiz2.carpoolr.model.AccessToken;
-import com.techwiz2.carpoolr.model.Response;
+import com.techwiz2.carpoolr.model.Ride;
+
+import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -20,6 +20,9 @@ public interface ApiServer {
     @POST("api/auth/login")
     Call<AccessToken> getLogin(@Query("email") String email,
                                @Query("password") String password);
+    @POST("api/ride")
+    Call<List<Ride>> getListRide();
+
 
 
 
