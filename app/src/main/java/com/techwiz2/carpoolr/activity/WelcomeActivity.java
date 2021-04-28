@@ -1,12 +1,17 @@
 package com.techwiz2.carpoolr.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.techwiz2.carpoolr.MainActivity;
 import com.techwiz2.carpoolr.R;
 import com.techwiz2.carpoolr.activity.fragments.FragmentBlank1;
 import com.techwiz2.carpoolr.activity.fragments.FragmentBlank2;
@@ -19,7 +24,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
