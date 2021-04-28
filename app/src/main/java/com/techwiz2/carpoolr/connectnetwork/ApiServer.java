@@ -36,7 +36,7 @@ public interface ApiServer {
                           @Query("slot") int slot,
                           @Query("time") long time);
 
-    @GET("api/ride")
+    @GET("api/user/ride")
     Call<List<History>> getHistory(@Header("Authorization") String token);
 
 

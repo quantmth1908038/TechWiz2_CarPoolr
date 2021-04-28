@@ -50,7 +50,7 @@ public class HistoryAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         HistoryHolder historyHolder = (HistoryHolder) holder;
         History model = historyList.get(position);
-        historyHolder.tvTitleTime.setText(DateFormat.getDateInstance(DateFormat.DAY_OF_YEAR_FIELD).format(model.getTime()));
+        historyHolder.tvTitleTime.setText(DateFormat.getDateInstance(DateFormat.FULL).format(model.getTime()));
         historyHolder.ePointAway.setText(model.getFromAdd());
         historyHolder.eDestination.setText(model.getToAdd());
         historyHolder.tvFare.setText(String.valueOf(model.getFare()) + " USD");
@@ -58,13 +58,12 @@ public class HistoryAdapter extends RecyclerView.Adapter {
             historyHolder.tvNameCar.setText(model.getCar().getName());
             historyHolder.tvPlate.setText(model.getCar().getPlate());
         }
-        switch (model.getStatus()) {
-            case "1":
-                historyHolder.tvStatus.setText("Wait State");
-            case "2":
-                historyHolder.tvStatus.setText("Success");
-            case "0":
-                historyHolder.tvStatus.setText("Cancel");
+        if (model.getStatus().equals("1")) {
+            historyHolder.tvStatus.setText("Wait State");
+        } else if (model.getStatus().equals("2")) {
+            historyHolder.tvStatus.setText("Success");
+        } else if (model.getStatus().equals("3")) {
+            historyHolder.tvStatus.setText("Cancel");
         }
 
     }
