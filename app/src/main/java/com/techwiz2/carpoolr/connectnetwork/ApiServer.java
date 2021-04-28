@@ -3,6 +3,7 @@ package com.techwiz2.carpoolr.connectnetwork;
 import com.techwiz2.carpoolr.model.AccessToken;
 import com.techwiz2.carpoolr.model.History;
 import com.techwiz2.carpoolr.model.Response;
+import com.techwiz2.carpoolr.model.User;
 
 import java.util.List;
 
@@ -38,6 +39,8 @@ public interface ApiServer {
 
     @GET("api/user/ride")
     Call<List<History>> getHistory(@Header("Authorization") String token);
+    @GET("api/profile")
+    Call<User>getUser();
 
 
 
