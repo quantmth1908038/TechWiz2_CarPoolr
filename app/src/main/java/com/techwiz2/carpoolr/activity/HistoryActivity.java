@@ -1,24 +1,31 @@
 package com.techwiz2.carpoolr.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.techwiz2.carpoolr.MainActivity;
 import com.techwiz2.carpoolr.R;
 import com.techwiz2.carpoolr.adapter.HistoryAdapter;
 import com.techwiz2.carpoolr.connectnetwork.ApiServer;
 import com.techwiz2.carpoolr.model.History;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    private List<History> listUser = new ArrayList<>();
+    private List<History> historyList = new ArrayList<>();
     HistoryAdapter adapter;
 
     @Override
@@ -36,8 +43,15 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+        getData();
 
+        adapter = new HistoryAdapter(this, historyList);
 
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL,false);
+
+        RecyclerView rvItem = findViewById(R.id.rvHistory);
+        rvItem.setLayoutManager(layoutManager);
+        rvItem.setAdapter(adapter);
 
     }
 
@@ -50,15 +64,29 @@ public class HistoryActivity extends AppCompatActivity {
                 .build();
 
         ApiServer service = retrofit.create(ApiServer.class);
-        service.getHistory("Bearer " + setting.getString("access_token", "")).enqueue(new Callback<History>() {
+        service.getHistory("Bearer " + setting.getString("access_token", "")).enqueue(new Callback<List<History>>() {
             @Override
-            public void onResponse(Call<History> call, Response<History> response) {
-
+            public void onResponse(Call<List<History>> call, Response<List<History>> response) {
+                historyList = response.body();
+                if (historyList != null) {
+                    try {
+                        for (History history:historyList) {
+                            Geocoder geocoder = new Geocoder(HistoryActivity.this, Locale.getDefault());
+                            List<Address> addresses = geocoder.getFromLocation(history.getDestinationX(), history.getDestinationY(), 1);
+                            history.setFromAdd(addresses.get(0).getAddressLine(0));
+                            List<Address> addresses1 = geocoder.getFromLocation(history.getDepartureX(), history.getDepartureY(), 1);
+                            history.setToAdd(addresses1.get(0).getAddressLine(0));
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    adapter.reloadData(historyList);
+                }
             }
 
             @Override
-            public void onFailure(Call<History> call, Throwable t) {
-
+            public void onFailure(Call<List<History>> call, Throwable t) {
+                System.out.println("Failure, retrofitError" + t);
             }
         });
     }

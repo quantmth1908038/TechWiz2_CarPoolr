@@ -10,9 +10,16 @@ public class History {
     private String status;
     private long time;
     private double fare;
-    private int slot;
-    private String name;
-    private String plate;
+    private Car car;
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
     private String fromAdd;
     private String toAdd;
     private String Direction;
@@ -95,29 +102,5 @@ public class History {
 
     public void setFare(double fare) {
         this.fare = fare;
-    }
-
-    public int getSlot() {
-        return slot;
-    }
-
-    public void setSlot(int slot) {
-        this.slot = slot;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPlate() {
-        return plate;
-    }
-
-    public void setPlate(String plate) {
-        this.plate = plate;
     }
 }

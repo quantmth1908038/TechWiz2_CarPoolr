@@ -4,6 +4,8 @@ import com.techwiz2.carpoolr.model.AccessToken;
 import com.techwiz2.carpoolr.model.History;
 import com.techwiz2.carpoolr.model.Response;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -35,7 +37,7 @@ public interface ApiServer {
                           @Query("time") long time);
 
     @GET("api/ride")
-    Call<History> getHistory(@Header("Authorization") String token);
+    Call<List<History>> getHistory(@Header("Authorization") String token);
 
 
 

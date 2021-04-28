@@ -50,13 +50,14 @@ public class HistoryAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         HistoryHolder historyHolder = (HistoryHolder) holder;
         History model = historyList.get(position);
-        historyHolder.tvTitleTime.setText(DateFormat.getTimeInstance(DateFormat.FULL).format(model.getTime()));
+        historyHolder.tvTitleTime.setText(DateFormat.getDateInstance(DateFormat.DAY_OF_YEAR_FIELD).format(model.getTime()));
         historyHolder.ePointAway.setText(model.getFromAdd());
         historyHolder.eDestination.setText(model.getToAdd());
-        historyHolder.eDestination.setText(model.getDirection());
-        historyHolder.tvFare.setText(String.valueOf(model.getFare()) + "USD");
-        historyHolder.tvNameCar.setText(model.getName());
-        historyHolder.tvPlate.setText(model.getPlate());
+        historyHolder.tvFare.setText(String.valueOf(model.getFare()) + " USD");
+        if (model.getCar() != null) {
+            historyHolder.tvNameCar.setText(model.getCar().getName());
+            historyHolder.tvPlate.setText(model.getCar().getPlate());
+        }
         switch (model.getStatus()) {
             case "1":
                 historyHolder.tvStatus.setText("Wait State");
